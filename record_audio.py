@@ -125,4 +125,8 @@ def get_audio():
   # sr, audio = wav_read(io.BytesIO(riff))
   audio, sr = librosa.load(io.BytesIO(riff), sr=16000)
 
-  return audio, sr
+  audio_file = 'audio.wav'
+  with open(audio_file,'wb') as f:
+    f.write(riff)
+
+  return audio, sr, audio_file
