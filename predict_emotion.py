@@ -21,7 +21,8 @@ from record_audio import get_audio
 # Constants
 DURATION_IEMOCAP = 11
 SAMPLING_RATE = 16000
-LR_MER_MODEL = '/content/mser-thesis-app/result_models/lr_mer_iemocap'
+# MER_MODEL = '/content/mser-thesis-app/result_models/lr_mer_iemocap'
+MER_MODEL = '/content/mser-thesis-app/result_models/lsvm_mer_iemocap'
 VECTORIZER = '/content/mser-thesis-app/mer_tfidf_iemocap.pkl'
 SCALER = '/content/mser-thesis-app/mer_mfcc_mel_chroma_scaler_iemocap.pkl'
 
@@ -51,7 +52,7 @@ LR_PARAMS = {
 """
     This function predicts an emotion of the given audio file with corresponding transript.
 """
-def predict_emotion(text, filepath, saved_model_filename=LR_MER_MODEL, scaler_filename=SCALER, vect_filename=VECTORIZER):
+def predict_emotion(text, filepath, saved_model_filename=MER_MODEL, scaler_filename=SCALER, vect_filename=VECTORIZER):
     # Get the features
     X_audio = extract_audio_features(filepath, mfcc=True, mel=True, chroma=True).reshape(1, -1)
 
