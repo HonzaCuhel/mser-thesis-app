@@ -17,6 +17,8 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from extract_audio_features import extract_audio_features
 from record_audio import get_audio
 
+
+# Constants
 DURATION_IEMOCAP = 11
 SAMPLING_RATE = 16000
 LR_MER_MODEL = '/content/mser-thesis-app/result_models/lr_mer_iemocap'
@@ -24,9 +26,9 @@ VECTORIZER = '/content/mser-thesis-app/mer_tfidf_iemocap.pkl'
 SCALER = '/content/mser-thesis-app/mer_mfcc_mel_chroma_scaler_iemocap.pkl'
 
 emotions = ['neutral', 'happy', 'sad', 'angry']
-
+ 
 LANG='en'
-
+ 
 vectorizer_params = {
     'ngram_range': (1, 2),
     'max_df': 0.95,
@@ -37,6 +39,9 @@ vectorizer_params = {
 }
 
 
+"""
+    This function predicts an emotion of the given audio file with corresponding transript.
+"""
 def predict_emotion(text, filepath, saved_model_filename=LR_MER_MODEL, scaler_filename=SCALER, vect_filename=VECTORIZER):
     # Get the features
     X_audio = extract_audio_features(filepath, mfcc=True, mel=True, chroma=True).reshape(1, -1)
@@ -69,6 +74,9 @@ def predict_emotion(text, filepath, saved_model_filename=LR_MER_MODEL, scaler_fi
     return emotions[model.predict(X)[0]]
 
 
+"""
+    This method runs the EmotionRecognition.
+"""
 def run_emotion_recognizer():
     # Record an audio from a microphone
     audio, sample_rate, audio_file = get_audio()
@@ -78,18 +86,16 @@ def run_emotion_recognizer():
     with sr.AudioFile(audio_file) as source:
         audio = r.record(source, duration=DURATION_IEMOCAP)  # read the entire audio file
 
-    # recognize speech using Google Speech Recognition
+    # Resource: https://github.com/Uberi/speech_recognition/blob/master/examples/audio_transcribe.py
+    # Recognize speech using Google Speech Recognition
     try:
-        # for testing purposes, we're just using the default API key
-        # to use another API key, use `r.recognize_google(audio, key="GOOGLE_SPEECH_RECOGNITION_API_KEY")`
-        # instead of `r.recognize_google(audio)`
-        # print("Google Speech Recognition thinks you said: " + r.recognize_google(audio, language=lang))
-        text = r.recognize_google(audio, language=LANG)
+        text = r.recognize_google(audio, language=lang)
+        print("Google Speech Recognition thinks you said: " + text)
     except sr.UnknownValueError:
         print("Google Speech Recognition could not understand audio")
     except sr.RequestError as e:
         print("Could not request results from Google Speech Recognition service; {0}".format(e))
-
+    
     # Predict an emotion
     pred = predict_emotion(text, audio_file)
 

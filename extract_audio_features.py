@@ -23,9 +23,6 @@ def extract_audio_features(file_name, should_augment=False, **kwargs):
   # https://librosa.org/doc/latest/tutorial.html#quickstart
   # https://github.com/librosa/librosa/issues/1015
   X, sample_rate = librosa.load(file_name)
-  # with soundfile.SoundFile(file_name) as sound_file:
-  # X = sound_file.read(dtype="float32")
-  # sample_rate = sound_file.samplerate
   if chroma:
     stft = np.abs(librosa.stft(X))
   result = np.array([])
