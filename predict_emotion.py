@@ -21,8 +21,8 @@ from record_audio import get_audio
 DURATION_IEMOCAP = 11
 SAMPLING_RATE = 16000
 LR_MER_MODEL = './result_models/lr_mer_iemocap'
-VECTORIZER = 'mer_tfidf_iemocap.pkl'
-SCALER = 'mer_mfcc_mel_chroma_scaler_iemocap.pkl'
+VECTORIZER = './mer_tfidf_iemocap.pkl'
+SCALER = './mer_mfcc_mel_chroma_scaler_iemocap.pkl'
 
 emotions = ['neutral', 'happy', 'sad', 'angry']
 
