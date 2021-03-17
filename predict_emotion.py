@@ -21,8 +21,8 @@ from record_audio import get_audio
 # Constants
 DURATION_IEMOCAP = 11
 SAMPLING_RATE = 16000
-# MER_MODEL = '/content/mser-thesis-app/result_models/lr_mer_iemocap'
-MER_MODEL = '/content/mser-thesis-app/result_models/lsvm_mer_iemocap'
+MER_MODEL = '/content/mser-thesis-app/result_models/lr_mer_iemocap'
+# MER_MODEL = '/content/mser-thesis-app/result_models/lsvm_mer_iemocap'
 VECTORIZER = '/content/mser-thesis-app/mer_tfidf_iemocap.pkl'
 SCALER = '/content/mser-thesis-app/mer_mfcc_mel_chroma_scaler_iemocap.pkl'
 
