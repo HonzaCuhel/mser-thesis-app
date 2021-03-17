@@ -38,6 +38,15 @@ vectorizer_params = {
     'max_features': 2200
 }
 
+LR_PARAMS = {
+    'solver': 'newton-cg',
+    'penalty': 'l2',
+    'multi_class': 'auto',
+    'max_iter': 800,
+    'class_weight': None,
+    'C': 0.56
+}
+
 
 """
     This function predicts an emotion of the given audio file with corresponding transript.
@@ -66,7 +75,7 @@ def predict_emotion(text, filepath, saved_model_filename=LR_MER_MODEL, scaler_fi
     # X = np.hstack(([text], X_audio[0])).reshape(1, -1)
     X = np.concatenate((X_text, X_audio), axis=1)
 
-    model = LogisticRegression()
+    model = LogisticRegression(**LR_PARAMS)
     # Load the model
     with open(saved_model_filename, 'rb') as f:
         model = pickle.load(f)
