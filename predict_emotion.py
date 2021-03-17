@@ -6,7 +6,6 @@ import os
 import gtts
 from pydub import AudioSegment
 from pydub.playback import play
-# from tempfile import TemporaryFile
 
 import numpy as np
 import pickle
@@ -38,14 +37,14 @@ vectorizer_params = {
 }
 
 
-def predict_emotion(text, filepath, saved_model_filename=LR_MER_MODEL):
+def predict_emotion(text, filepath, saved_model_filename=LR_MER_MODEL, scaler_filename=SCALER, vect_filename=VECTORIZER):
     # Get the features
     X_audio = extract_audio_features(filepath, mfcc=True, mel=True, chroma=True).reshape(1, -1)
 
     # Create a normalization object
     scaler = MinMaxScaler()
     # Load the scaler
-    with open(SCALER, 'rb') as scaler_file:
+    with open(scaler_filename, 'rb') as scaler_file:
         scaler = pickle.load(scaler_file)
     # Normalize audio training data
     X_audio = scaler.transform(X_audio)
@@ -53,7 +52,7 @@ def predict_emotion(text, filepath, saved_model_filename=LR_MER_MODEL):
     # Initialize Vectorizer
     vectorizer = TfidfVectorizer(**vectorizer_params)
     # Load the vectorizer
-    with open(VECTORIZER, 'rb') as vect_file:
+    with open(vect_filename, 'rb') as vect_file:
         vectorizer = pickle.load(vect_file)
 
     # Get the tf-idf text features
