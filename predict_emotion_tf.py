@@ -36,7 +36,8 @@ DURATION_IEMOCAP = 11
 SAMPLING_RATE = 16000
 input_length = SAMPLING_RATE * DURATION_IEMOCAP
 # MER model
-MER_ELECTRA_TRILL = '/content/mser-thesis-app/result_models/mer_trill_electra_small_model.h5'
+# MER_ELECTRA_TRILL = '/content/mser-thesis-app/result_models/mer_trill_electra_small_model.h5'
+MER_ELECTRA_TRILL = './mser-thesis-app/result_models/mer_trill_electra_small_model.h5'
 # Emotion models
 emotions_iemocap = ['neutral', 'happy', 'sad', 'angry']
 emotions_ravdess = ['neutral', 'calm', 'happy', 'sad', 'angry', 'fearful', 'disgust', 'surprised']
